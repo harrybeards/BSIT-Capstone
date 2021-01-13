@@ -1,0 +1,18 @@
+{% extends 'base-recipe.html' %}
+
+{% block content %}
+    <h3>Recipe List</h3>
+    {% if recipe_list %}
+        <ul>
+        {% for recipe in recipe_list %}
+            <li>
+                <a href="#">{{ recipe.title }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No recipes found dawg</p>
+
+        <h3><a href="{% url 'recipe_book:recipe-create' %}">Create a Recipe</a></h3>
+    {% endif %}
+{% endblock %}
