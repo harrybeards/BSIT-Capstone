@@ -2,17 +2,16 @@
 
 {% block content %}
     <h3>Recipe List</h3>
-    {% if recipe_list %}
+    {% if recipes %}
         <ul>
-        {% for recipe in recipe_list %}
+        {% for recipe in recipes %}
             <li>
-                <a href="#">{{ recipe.title }}</a>
+                <a href="{{ recipe.get_absolute_url }}">{{ recipe.title }}</a>
             </li>
         {% endfor %}
         </ul>
     {% else %}
         <p>No recipes found dawg</p>
-
-        <h3><a href="{% url 'recipe_book:recipe-create' %}">Create a Recipe</a></h3>
     {% endif %}
+    <a class="btn btn-primary" href="{% url 'recipe_book:recipe-create' %}">Create a Recipe</a>
 {% endblock %}

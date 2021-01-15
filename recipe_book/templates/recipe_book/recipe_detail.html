@@ -1,0 +1,11 @@
+{% extends 'base-recipe.html' %}
+
+{% block content %}
+    <h1>Recipe: {{ recipe.title }}</h1>
+
+    <h3>Description:</h3>
+    <p>{{ recipe.description }}</p>
+
+    <a class="btn btn-primary" href="{% url 'recipe_book:recipe-update' recipe.pk%}">Edit this recipe</a>
+    <a class="btn badge-danger" href="{% url 'recipe_book:recipe-delete' recipe.pk%}">Delete this recipe</a>
+{% endblock %}

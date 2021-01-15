@@ -2,11 +2,13 @@ from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+from django.shortcuts import reverse
+import uuid
 # Create your models here.
 
 
 class RecipeBook(models.Model):
+    """Each user has a single associated RecipeBook object, linked in this OneToOne field"""
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 
@@ -18,6 +20,7 @@ def create_user_recipebook(sender, **kwargs):
 
 
 class Recipe(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4())
     recipebook = models.ForeignKey(RecipeBook, on_delete=models.CASCADE)
     title = models.CharField(max_length=150, help_text='Title of the recipe')
     description = models.TextField(help_text='Description of the recipe', blank=True)
@@ -32,6 +35,9 @@ class Recipe(models.Model):
         ('h', 'Hours')
     )
 
+    def get_absolute_url(self):
+        return reverse('recipe_book:recipe-detail', args=[str(self.id)])
+
     def __str__(self):
         return self.title
 
@@ -39,6 +45,7 @@ class Recipe(models.Model):
 class Ingredient(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
+    amount = models.SmallIntegerField(blank=True)
 
     def __str__(self):
         return self.name
@@ -46,5 +53,5 @@ class Ingredient(models.Model):
 
 class Direction(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    step_number = models.SmallIntegerField()
+    #step_number = models.SmallIntegerField()
     step_instructions = models.TextField(help_text='Write the instructions of the step here')
