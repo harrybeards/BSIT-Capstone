@@ -21,7 +21,7 @@ def create_user_recipebook(sender, **kwargs):
 
 class Recipe(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4())
-    recipebook = models.ForeignKey(RecipeBook, on_delete=models.CASCADE)
+    recipebook = models.ForeignKey(RecipeBook, related_name='recipes', on_delete=models.CASCADE)
     title = models.CharField(max_length=150, help_text='Title of the recipe')
     description = models.TextField(help_text='Description of the recipe', blank=True)
     # image = models.ImageField(height_field=, width_field=, help_text='Image of the recipe', blank=True)
@@ -29,11 +29,16 @@ class Recipe(models.Model):
     prep_time = models.PositiveSmallIntegerField(help_text='The preparation time', default=0, blank=True)
     cook_time = models.PositiveSmallIntegerField(help_text='The cooking time', default=0, blank=True)
     url = models.URLField(blank=True)
+    note = models.TextField(blank=True)
 
     TIME_UNITS = (
         ('m', 'Minutes'),
         ('h', 'Hours')
     )
+
+    class Meta:
+        verbose_name = 'Recipe'
+        verbose_name_plural = 'Recipes'
 
     def get_absolute_url(self):
         return reverse('recipe_book:recipe-detail', args=[str(self.id)])
@@ -43,9 +48,13 @@ class Recipe(models.Model):
 
 
 class Ingredient(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, related_name='ingredients', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    amount = models.SmallIntegerField(blank=True)
+    amount = models.CharField(max_length=10, blank=True)
+
+    class Meta:
+        verbose_name = 'Ingredient'
+        verbose_name_plural = 'Ingredients'
 
     def __str__(self):
         return self.name
@@ -53,5 +62,4 @@ class Ingredient(models.Model):
 
 class Direction(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    #step_number = models.SmallIntegerField()
     step_instructions = models.TextField(help_text='Write the instructions of the step here')

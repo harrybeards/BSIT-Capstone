@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'recipe_book',
     'grocery_list',
     'settings',
+    'crispy_forms', # 3rd party module that makes dynamic form generation/styling easier
 ]
 
 MIDDLEWARE = [
@@ -125,13 +126,12 @@ USE_L10N = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
-STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'root')
+STATIC_URL = '/static/'  # Points to the /static/ directory of this project
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'bootstrap/'),
+    os.path.join(BASE_DIR, 'static/'),
     # Bootstrap
-    os.path.join(BASE_DIR, 'bootstrap')
 ]
 
 # Telling Django to use our own custom User model

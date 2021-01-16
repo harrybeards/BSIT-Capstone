@@ -1,0 +1,16 @@
+{% extends 'base-recipe.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Create a Recipe
+        </div>
+
+        <div class="card-body">
+            {% crispy form %}
+        </div>
+    </div>
+</div>
+{% endblock %}
