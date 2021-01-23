@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'recipe_book',
     'grocery_list',
     'settings',
-    'crispy_forms', # 3rd party module that makes dynamic form generation/styling easier
 ]
 
 MIDDLEWARE = [
