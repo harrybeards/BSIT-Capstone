@@ -45,7 +45,7 @@ class Recipe(models.Model):
 class Ingredient(models.Model):
     recipe = models.ForeignKey(Recipe, related_name='ingredient_set', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    amount = models.CharField(max_length=20)
+    amount = models.CharField(max_length=20, blank=True)
 
     def __str__(self):
         return self.name

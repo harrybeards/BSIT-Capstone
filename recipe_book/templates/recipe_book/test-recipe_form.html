@@ -1,0 +1,74 @@
+{% extends 'base-recipe.html' %}
+
+{# https://simpleit.rocks/python/django/dynamic-add-form-with-add-button-in-django-modelformset-template/ #}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">Create Recipe</div>
+            <div class="card-body">
+                <form class="form-horizontal" action="" method="POST"> {% csrf_token %}
+                    {# table for the Recipe object, manually rendering it for more control #}
+                    <table class="table">
+                        <tr>
+                            <td>{{ form.title.label_tag }}</td>
+                            <td>{{ form.title }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.description.label_tag }}</td>
+                            <td>{{ form.description }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.servings.label_tag }}</td>
+                            <td>{{ form.servings }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.prep_time.label_tag }}</td>
+                            <td>{{ form.prep_time }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.cook_time.label_tag }}</td>
+                            <td>{{ form.cook_time }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.url.label_tag }}</td>
+                            <td>{{ form.url }}</td>
+                        </tr>
+                    </table>
+
+                    {# Blank templates for dynamically generating new Ingredient/Direction forms #}
+                    <div id="empty_form" style="display:none">
+                        <table class='no_error'>
+                            {{ myformset.empty_form }}
+                        </table>
+                    </div>
+
+                    {{ ingredients.management_form }}
+                    <div id="ingredients_form_set">
+                        {% for form in ingredients.forms %}
+                            {{ form.non_field_errors }}
+                            {{ form.errors }}
+                            <table class="no_error">
+                                {{ form }}
+                            </table>
+                        {% endfor %}
+                    </div>
+                    <input type="button" class="btn btn-primary" value="Add Another Ingredient" id="add_more_ingredient">
+
+                    {{ directions.management_form }}
+
+
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                    <a class="btn btn-danger" href="{% url 'recipe_book:index' %}">Back to the recipe list</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $('#add_more_ingredient').click(function() {
+            var form_idx = $('#id_ingredient_set-TOTAL_FORMS').val();
+            $('#ingredients_form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+            $('#id_ingredient_set-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        });
+    </script>
+{% endblock %}

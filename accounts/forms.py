@@ -13,8 +13,8 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class CustomUserCreationForm(forms.Form):
-    username = forms.CharField(label='Enter Username', min_length=4, max_length=150)
-    email = forms.EmailField(label='Enter email')
+    username = forms.CharField(label='Enter Username', min_length=4, max_length=150, widget=forms.TextInput)
+    email = forms.EmailField(label='Enter email', widget=forms.EmailInput)
     password1 = forms.CharField(label='Enter password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
 
