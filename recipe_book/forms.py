@@ -32,22 +32,6 @@ class AddIngredientForm(ModelForm):
     #     ingredient = super(AddIngredientForm, self).save(*args, **kwargs)
     #     return ingredient
 
-    # def __init__(self, *args, **kwargs):
-    #     self.organizer = kwargs.pop('organizer')
-    #     super(MealForm, self).__init__(*args, **kwargs)
-    #     if not self.instance:
-    #         self.fields['location'].initial = self.organizer.default_location
-    #     self.fields['required'].widget = CheckboxInput(required=False)
-    #
-    # def clean_time(self):
-    #     time = self.cleaned_data['time']
-    #     # do stuff with the time to put it in UTC based on the user's default timezone and data passed into the form.
-    #
-    # def save(self, *args, **kwargs):
-    #     self.instance.organizer = self.organizer
-    #     meal = super(MealForm, self).save(*args, **kwargs)
-    #     return meal
-
 
 IngredientFormset = inlineformset_factory(Recipe, Ingredient, form=AddIngredientForm, extra=1, can_delete=True)
 
