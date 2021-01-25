@@ -6,6 +6,7 @@ from .models import Recipe, Ingredient, Direction, RecipeBook
 
 
 class AddRecipeForm(ModelForm):
+    recipe = forms.ModelChoiceField(queryset=Recipe.objects.all())
 
     class Meta:
         model = Recipe
@@ -18,9 +19,18 @@ class AddIngredientForm(ModelForm):
         model = Ingredient
         fields = ['name', 'amount']
 
-    # def __init__(self, recipe, *args, **kwargs):
+    # def __init__(self, *args, **kwargs):
+    #     self.recipe = kwargs.pop('recipe')
     #     super(AddIngredientForm, self).__init__(*args, **kwargs)
-    #     self.fields['recipe'].queryset = Recipe.objects.filter(recipebook=recipebook)
+    #
+    #     if not self.instance:
+    #         self.fields['name'].initial = self.recipe.default_name
+    #     self.fields['amount'].widget = forms.TextInput(required=False)
+    #
+    # def save(self, *args, **kwargs):
+    #     self.instance.recipe = self.recipe
+    #     ingredient = super(AddIngredientForm, self).save(*args, **kwargs)
+    #     return ingredient
 
 
 IngredientFormset = inlineformset_factory(Recipe, Ingredient, form=AddIngredientForm, extra=1, can_delete=True)
@@ -32,9 +42,17 @@ class AddDirectionForm(ModelForm):
         model = Direction
         fields = ['step_instructions']
 
-    # def __init__(self, recipe, *args, **kwargs):
+    # def __init__(self, *args, **kwargs):
+    #     self.recipe = kwargs.pop('recipe')
     #     super(AddDirectionForm, self).__init__(*args, **kwargs)
-    #     self.fields['recipe'].queryset = Recipe.objects.filter(recipebook=recipebook)
+    #
+    #     if not self.instance:
+    #         self.fields['step_instructions'].initial = self.recipe.default_step_instructions
+    #
+    # def save(self, *args, **kwargs):
+    #     self.instance.recipe = self.recipe
+    #     direction = super(AddDirectionForm, self).save(*args, **kwargs)
+    #     return direction
 
 
 DirectionFormset = inlineformset_factory(Recipe, Direction, form=AddDirectionForm, extra=1, can_delete=True)
