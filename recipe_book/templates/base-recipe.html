@@ -18,7 +18,7 @@
           <a class="nav-link" href="#">Meal Planning</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'calendar:index' %}">Home</a>
+          <a class="nav-link" href="{% url 'calendar_user:index' %}">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
@@ -51,7 +51,7 @@
 
               <ul class="nav flex-column bg-white mb-0">
                 <li class="nav-item">
-                  <a href="{% url 'calendar:index' %}" class="nav-link text-dark bg-light">Calendar</a>
+                  <a href="{% url 'calendar_user:index' %}" class="nav-link text-dark bg-light">Calendar</a>
                 </li>
                 <li class="nav-item">
                   <a href="{% url 'recipe_book:index' %}" class="nav-link text-dark  bg-light">Recipe Book</a>
@@ -65,6 +65,7 @@
               </ul>
         </div>
     </div>
+
 <!-- End vertical navbar -->
 
     {# Pages that extend this file will have their content inserted in the below block #}

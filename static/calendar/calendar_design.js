@@ -292,7 +292,7 @@ function Calendar(element, options, eventSources) {
 	}
 
 
-	// called when we know the calendar couldn't be rendered when it was initialized,
+	// called when we know the calendar_user couldn't be rendered when it was initialized,
 	// but we think it's ready now
 	function lateRender() {
 		setTimeout(function() { // IE7 needs this so dimensions are calculated correctly
@@ -357,7 +357,7 @@ function Calendar(element, options, eventSources) {
 		currentView = new fcViews[newViewName](
 			$("<div class='fc-view fc-view-" + newViewName + "' style='position:relative'/>")
 				.appendTo(content),
-			t // the calendar object
+			t // the calendar_user object
 		);
 
 		renderView();
@@ -467,7 +467,7 @@ function Calendar(element, options, eventSources) {
 					}
 				}, 200);
 			}else{
-				// calendar must have been initialized in a 0x0 iframe that has just been resized
+				// calendar_user must have been initialized in a 0x0 iframe that has just been resized
 				lateRender();
 			}
 		}
@@ -701,7 +701,7 @@ function Calendar(element, options, eventSources) {
 			.bind('dragstart', function(ev, ui) {
 				var _e = ev.target;
 				var e = $(_e);
-				if (!e.parents('.fc').length) { // not already inside a calendar
+				if (!e.parents('.fc').length) { // not already inside a calendar_user
 					var accept = options.dropAccept;
 					if ($.isFunction(accept) ? accept.call(_e, e) : e.is(accept)) {
 						_dragElement = _e;
@@ -782,7 +782,7 @@ function Header(calendar, options) {
 					}else{
 						var buttonClick;
 						if (calendar[buttonName]) {
-							buttonClick = calendar[buttonName]; // calendar method
+							buttonClick = calendar[buttonName]; // calendar_user method
 						}
 						else if (fcViews[buttonName]) {
 							buttonClick = function() {
@@ -4358,7 +4358,7 @@ function placeSlotSegs(segs) {
 
 
 // Builds an array of segments "levels". The first level will be the leftmost tier of segments
-// if the calendar is left-to-right, or the rightmost if the calendar is right-to-left.
+// if the calendar_user is left-to-right, or the rightmost if the calendar_user is right-to-left.
 function buildSlotSegLevels(segs) {
 	var levels = [];
 	var i, seg;
@@ -4432,8 +4432,8 @@ function computeSlotSegPressures(seg) {
 
 
 // Calculate seg.forwardCoord and seg.backwardCoord for the segment, where both values range
-// from 0 to 1. If the calendar is left-to-right, the seg.backwardCoord maps to "left" and
-// seg.forwardCoord maps to "right" (via percentage). Vice-versa if the calendar is right-to-left.
+// from 0 to 1. If the calendar_user is left-to-right, the seg.backwardCoord maps to "left" and
+// seg.forwardCoord maps to "right" (via percentage). Vice-versa if the calendar_user is right-to-left.
 //
 // The segment might be part of a "series", which means consecutive segments with the same pressure
 // who's width is unknown until an edge has been hit. `seriesBackwardPressure` is the number of
@@ -4526,7 +4526,7 @@ function compareForwardSlotSegs(seg1, seg2) {
 
 
 // A cmp function for determining which segment should be closer to the initial edge
-// (the left edge on a left-to-right calendar).
+// (the left edge on a left-to-right calendar_user).
 function compareSlotSegs(seg1, seg2) {
 	return seg1.start - seg2.start || // earlier start time goes first
 		(seg2.end - seg2.start) - (seg1.end - seg1.start) || // tie? longer-duration goes first
@@ -5123,7 +5123,7 @@ function DayEventRenderer() {
 	var dayOffsetToCellOffset = t.dayOffsetToCellOffset;
 
 
-	// Render `events` onto the calendar, attach mouse event handlers, and call the `eventAfterRender` callback for each.
+	// Render `events` onto the calendar_user, attach mouse event handlers, and call the `eventAfterRender` callback for each.
 	// Mouse event will be lazily applied, except if the event has an ID of `modifiedEventId`.
 	// Can only be called when the event container is empty (because it wipes out all innerHTML).
 	function renderDayEvents(events, modifiedEventId) {
@@ -5150,7 +5150,7 @@ function DayEventRenderer() {
 	}
 
 
-	// Render an event on the calendar, but don't report them anywhere, and don't attach mouse handlers.
+	// Render an event on the calendar_user, but don't report them anywhere, and don't attach mouse handlers.
 	// Append this event element to the event container, which might already be populated with events.
 	// If an event's segment will have row equal to `adjustRow`, then explicitly set its top coordinate to `adjustTop`.
 	// This hack is used to maintain continuity when user is manually resizing an event.
@@ -5179,7 +5179,7 @@ function DayEventRenderer() {
 	}
 
 
-	// Render events onto the calendar. Only responsible for the VISUAL aspect.
+	// Render events onto the calendar_user. Only responsible for the VISUAL aspect.
 	// Not responsible for attaching handlers or calling callbacks.
 	// Set `doAppend` to `true` for rendering elements without clearing the existing container.
 	// Set `doRowHeights` to allow setting the height of each row, to compensate for vertical event overflow.

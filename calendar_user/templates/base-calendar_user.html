@@ -10,98 +10,6 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <style>
-        /*
-        *
-        * ==========================================
-        * CUSTOM UTIL CLASSES
-        * ==========================================
-        *
-        */
-        .clearfix::after,
-        .calendar ol::after {
-          content: ".";
-          display: block;
-          height: 0;
-          clear: both;
-          visibility: hidden;
-        }
-
-        /* ================
-        Calendar Styling */
-        .calendar {
-          border-radius: 10px;
-        }
-
-        .month {
-          font-size: 2rem;
-        }
-
-        @media (min-width: 992px) {
-          .month {
-            font-size: 3.5rem;
-          }
-        }
-
-        .calendar ol li {
-          float: left;
-          width: 14.28571%;
-        }
-
-        .calendar .day-names {
-          border-bottom: 1px solid #eee;
-        }
-
-        .calendar .day-names li {
-          text-transform: uppercase;
-          margin-bottom: 0.5rem;
-        }
-
-        .calendar .days li {
-          border-bottom: 1px solid #eee;
-          min-height: 8rem;
-        }
-
-        .calendar .days li .date {
-          margin: 0.5rem 0;
-        }
-
-        .calendar .days li .event {
-          font-size: 0.75rem;
-          padding: 0.4rem;
-          color: white;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          border-radius: 4rem;
-          margin-bottom: 1px;
-        }
-
-        .calendar .days li .event.span-2 {
-          width: 200%;
-        }
-
-        .calendar .days li .event.begin {
-          border-radius: 1rem 0 0 1rem;
-        }
-
-        .calendar .days li .event.end {
-          border-radius: 0 1rem 1rem 0;
-        }
-
-        .calendar .days li .event.clear {
-          background: none;
-        }
-
-        .calendar .days li:nth-child(n+29) {
-          border-bottom: none;
-        }
-
-        .calendar .days li.outside .date {
-          color: #ddd;
-        }
-
-    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -110,7 +18,7 @@
           <a class="nav-link" href="#">Meal Planning</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'calendar:index' %}">Home</a>
+          <a class="nav-link" href="{% url 'calendar_user:index' %}">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
@@ -143,7 +51,7 @@
 
               <ul class="nav flex-column bg-white mb-0">
                 <li class="nav-item">
-                  <a href="{% url 'calendar:index' %}" class="nav-link text-dark bg-light">Calendar</a>
+                  <a href="{% url 'calendar_user:index' %}" class="nav-link text-dark bg-light">Calendar</a>
                 </li>
                 <li class="nav-item">
                   <a href="{% url 'recipe_book:index' %}" class="nav-link text-dark  bg-light">Recipe Book</a>
@@ -164,5 +72,6 @@
     {% block content %}
 
     {% endblock %}
+    </div>
 </body>
 </html>

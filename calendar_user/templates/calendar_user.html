@@ -1,0 +1,21 @@
+{% extends 'base-calendar_user.html' %}
+
+{% block content %}
+     <a class="btn btn-primary" href="{% url 'calendar_user:meal-create' %}">Schedule a Meal</a>
+    <div id="content-main">
+        <ul class="object-tools">
+            {% comment %}
+            <li>
+                <a href="{{ previous_month }}">Previous Month</a>
+            </li>
+            <li>
+                <a href="{{ next_month }}">Next Month</a>
+            </li>
+            {% endcomment %}
+            <a class="btn btn-warning" href="{{ previous_month }}">Previous Month</a>
+            <a class="btn btn-success" href="{{ next_month }}">Next Month</a>
+        </ul>
+
+        {{ calendar }}
+    </div>
+{% endblock %}

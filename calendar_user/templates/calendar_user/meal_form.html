@@ -1,0 +1,39 @@
+{% extends 'base-calendar_user.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">Schedule a Meal</div>
+            <div class="card-body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+
+                    <table class="table">
+                        <tr>
+                            <td>{{ form.title.label_tag }}</td>
+                            <td>{{ form.title }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.day.label_tag }}</td>
+                            <td>{{ form.day }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.start_time.label_tag }}</td>
+                            <td>{{ form.start_time }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.end_time.label_tag }}</td>
+                            <td>{{ form.end_time }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.notes.label_tag }}</td>
+                            <td>{{ form.notes }}</td>
+                        </tr>
+                    </table>
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                    <a class="btn btn-danger" href="{% url 'calendar_user:index' %}">Back to the Calendar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

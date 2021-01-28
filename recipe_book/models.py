@@ -22,7 +22,7 @@ def create_user_recipebook(sender, **kwargs):
 class Recipe(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4())
     recipebook = models.ForeignKey(RecipeBook, related_name='recipe_set', on_delete=models.CASCADE)
-    title = models.CharField(max_length=150, help_text='Title of the recipe')
+    title = models.CharField(max_length=300, help_text='Title of the recipe')
     description = models.TextField(help_text='Description of the recipe', blank=True)
     # image = models.ImageField(height_field=, width_field=, help_text='Image of the recipe', blank=True)
     servings = models.PositiveSmallIntegerField(help_text='The amount of servings the recipe will yield', default=0, blank=True)

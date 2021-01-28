@@ -19,8 +19,8 @@
         },
         dismissClockFunc: [],
         dismissCalendarFunc: [],
-        calendarDivName1: 'calendarbox', // name of calendar <div> that gets toggled
-        calendarDivName2: 'calendarin', // name of <div> that contains calendar
+        calendarDivName1: 'calendarbox', // name of calendar_user <div> that gets toggled
+        calendarDivName2: 'calendarin', // name of <div> that contains calendar_user
         calendarLinkName: 'calendarlink', // name of the link that is used to toggle
         clockDivName: 'clockbox', // name of clock <div> that gets toggled
         clockLinkName: 'clocklink', // name of the link that is used to toggle
@@ -147,7 +147,7 @@
             //         <li><a href="#">Noon</a></li>
             //         <li><a href="#">6 p.m.</a></li>
             //     </ul>
-            //     <p class="calendar-cancel"><a href="#">Cancel</a></p>
+            //     <p class="calendar_user-cancel"><a href="#">Cancel</a></p>
             // </div>
 
             const clock_box = document.createElement('div');
@@ -174,7 +174,7 @@
             });
 
             const cancel_p = quickElement('p', clock_box);
-            cancel_p.className = 'calendar-cancel';
+            cancel_p.className = 'calendar_user-cancel';
             const cancel_link = quickElement('a', cancel_p, gettext('Cancel'), 'href', '#');
             cancel_link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -225,14 +225,14 @@
             DateTimeShortcuts.clockInputs[num].focus();
             DateTimeShortcuts.dismissClock(num);
         },
-        // Add calendar widget to a given field.
+        // Add calendar_user widget to a given field.
         addCalendar: function(inp) {
             const num = DateTimeShortcuts.calendars.length;
 
             DateTimeShortcuts.calendarInputs[num] = inp;
             DateTimeShortcuts.dismissCalendarFunc[num] = function() { DateTimeShortcuts.dismissCalendar(num); return true; };
 
-            // Shortcut links (calendar icon and "Today" link)
+            // Shortcut links (calendar_user icon and "Today" link)
             const shortcuts_span = document.createElement('span');
             shortcuts_span.className = DateTimeShortcuts.shortCutsClass;
             inp.parentNode.insertBefore(shortcuts_span, inp.nextSibling);
@@ -248,7 +248,7 @@
             cal_link.id = DateTimeShortcuts.calendarLinkName + num;
             cal_link.addEventListener('click', function(e) {
                 e.preventDefault();
-                // avoid triggering the document click handler to dismiss the calendar
+                // avoid triggering the document click handler to dismiss the calendar_user
                 e.stopPropagation();
                 DateTimeShortcuts.openCalendar(num);
             });
@@ -271,13 +271,13 @@
             //           <a href="#" class="link-previous">&lsaquo;</a>
             //           <a href="#" class="link-next">&rsaquo;</a> February 2003
             //     </h2>
-            //     <div class="calendar" id="calendarin3">
+            //     <div class="calendar_user" id="calendarin3">
             //         <!-- (cal) -->
             //     </div>
-            //     <div class="calendar-shortcuts">
+            //     <div class="calendar_user-shortcuts">
             //          <a href="#">Yesterday</a> | <a href="#">Today</a> | <a href="#">Tomorrow</a>
             //     </div>
-            //     <p class="calendar-cancel"><a href="#">Cancel</a></p>
+            //     <p class="calendar_user-cancel"><a href="#">Cancel</a></p>
             // </div>
             const cal_box = document.createElement('div');
             cal_box.style.display = 'none';
@@ -309,9 +309,9 @@
             DateTimeShortcuts.calendars[num] = new Calendar(DateTimeShortcuts.calendarDivName2 + num, DateTimeShortcuts.handleCalendarCallback(num));
             DateTimeShortcuts.calendars[num].drawCurrent();
 
-            // calendar shortcuts
+            // calendar_user shortcuts
             const shortcuts = quickElement('div', cal_box);
-            shortcuts.className = 'calendar-shortcuts';
+            shortcuts.className = 'calendar_user-shortcuts';
             let day_link = quickElement('a', shortcuts, gettext('Yesterday'), 'href', '#');
             day_link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -332,7 +332,7 @@
 
             // cancel bar
             const cancel_p = quickElement('p', cal_box);
-            cancel_p.className = 'calendar-cancel';
+            cancel_p.className = 'calendar_user-cancel';
             const cancel_link = quickElement('a', cancel_p, gettext('Cancel'), 'href', '#');
             cancel_link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -352,7 +352,7 @@
             const inp = DateTimeShortcuts.calendarInputs[num];
 
             // Determine if the current value in the input has a valid date.
-            // If so, draw the calendar with that date's year and month.
+            // If so, draw the calendar_user with that date's year and month.
             if (inp.value) {
                 const format = get_format('DATE_INPUT_FORMATS')[0];
                 const selected = inp.value.strptime(format);
