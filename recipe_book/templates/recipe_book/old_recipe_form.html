@@ -37,9 +37,8 @@
                     </table>
 
                     {# table for the ingredient(s) object(s) #}
+                    {{ ingredients.management_form }}
                     <table class="table">
-                        {{ ingredients.management_form }}
-
                         {% for form in ingredients.forms %}
                             {% if forloop.first %}
                             <thead>
@@ -51,7 +50,7 @@
                             </thead>
                             {% endif %}
 
-                            <tr class="{% cycle row1 row2 %} formset_row-{{ ingredients.prefix }}">
+                            <tr class="{% cycle row1 row2 %} formset_row-ingredients">
                             {% for field in form.visible_fields %}
                                 <td>
                                     {# include the hidden fields in the form #}
@@ -68,20 +67,21 @@
                         {% endfor %}
                     </table>
 
-                    <table class="table">
+                    {# table for the direction(s) object(s) #}
                     {{ directions.management_form }}
+                    <table class="table">
                         {% for form in directions.forms %}
                             {% if forloop.first %}
                             <thead>
                                 <tr>
-                                {% for field in form.visible_fields %}
-                                    <th>{{ field.label|capfirst }}</th>
-                                {% endfor %}
+                                    {% for field in form.visible_fields %}
+                                        <th>{{ field.label|capfirst }}</th>
+                                    {% endfor %}
                                 </tr>
                             </thead>
                             {% endif %}
 
-                            <tr class="{% cycle row1 row2 %} formset_row-{{ directions.prefix }}">
+                            <tr class="{% cycle row1 row2 %} formset_row-directions">
                             {% for field in form.visible_fields %}
                                 <td>
                                     {# include the hidden fields in the form #}
@@ -107,15 +107,13 @@
     {% load static %}
     <script src="{% static 'js/jquery.formsets.js' %}"></script>
     <script type="text/javascript">
-        $('.formset_row-{{ ingredients.prefix }}').formset({
+        $('.formset_row-ingredients').formset({
             addText: 'Add Another Ingredient',
             deleteText: 'Remove',
-            prefix: '{{ ingredients.prefix }}',
         });
-        $('.formset_row-{{ directions.prefix }}').formset({
-            addText: 'Add another',
+        $('.formset_row-directions').formset({
+            addText: 'Add another Direction',
             deleteText: 'Remove',
-            prefix: '{{ directions.prefix }}',
         });
     </script>
 {% endblock %}

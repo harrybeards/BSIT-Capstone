@@ -21,11 +21,11 @@ def create_user_calendar(sender, **kwargs):
 
 
 class Meal(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4(), unique=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True)
     calendaruser = models.ForeignKey(CalendarUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=300, help_text='Title of the meal', unique=False)
     day = models.DateField(help_text='Day of the week', unique=False)
-    start_time = models.TimeField(default=datetime.date.today, help_text='Start time', blank=True, null=True)
+    start_time = models.TimeField(help_text='Start time', blank=True, null=True)
     end_time = models.TimeField(help_text='End time', blank=True, null=True)
     notes = models.TextField(help_text='Notes', blank=True, null=True)
 

@@ -1,0 +1,70 @@
+{% extends 'base-recipe.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">Create Grocery List</div>
+            <div class="card-body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <table class="table">
+                        <tr>
+                            <td>{{ form.name.label_tag }}</td>
+                            <td>{{ form.name }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.date.label_tag }}</td>
+                            <td>{{ form.date }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.notes.label_tag }}</td>
+                            <td>{{ form.note }}</td>
+                        </tr>
+                    </table>
+
+                    <table class="table">
+                        {{ grocery_list_week.management_form }}
+                        {% for form in grocery_list_week.forms %}
+                            {% if forloop.first %}
+                            <thead>
+                                <tr>
+                                {% for field in form.visible_fields %}
+                                    <th>{{ field.label|capfirst }}</th>
+                                {% endfor %}
+                                </tr>
+                            </thead>
+                            {% endif %}
+
+                            <tr class="{% cycle row1 row2 %} formset_row-{{ grocery_list_week.prefix }}">
+                            {% for field in form.visible_fields %}
+                                <td>
+                                    {# include the hidden fields in the form #}
+                                    {% if forloop.first %}
+                                        {% for hidden in form.hidden_fields %}
+                                            {{ hidden }}
+                                        {% endfor %}
+                                    {% endif %}
+                                    {{ field.errors.as_ul }}
+                                    {{ field }}
+                                </td>
+                            {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+
+                <input class="btn btn-primary" type="submit" value="Submit">
+                    <a class="btn btn-danger" href="{% url 'grocery_list:index' %}">Back to the Grocery List</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% load static %}
+    <script src="{% static 'js/jquery.formsets.js' %}"></script>
+    <script type="text/javascript">
+        $('.formset_row-{{ ingredients.prefix }}').formset({
+            addText: 'Add Another Item',
+            deleteText: 'Remove',
+            prefix: '{{ grocery_list_week.prefix }}',
+        });
+    </script>
+{% endblock %}

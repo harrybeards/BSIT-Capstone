@@ -115,7 +115,11 @@ LANGUAGE_CODE = 'en-us'
 # Django stores datetime information in UTC in the database, uses time-zone-aware datetime objects internally,
 # and translates them to the end user’s time zone in templates and forms. This is handy if your users live in
 # more than one time zone and you want to display datetime information according to each user’s wall clock.
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Chicago'
+# TIME_INPUT_FORMATS = [
+#     '%l:%M %p',
+#
+# ]
 USE_TZ = True
 
 USE_I18N = True

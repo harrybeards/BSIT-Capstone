@@ -7,7 +7,7 @@ import uuid # To create a unique User ID
 
 
 class User(AbstractUser):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4())
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
 
     def __str__(self):
         return self.username

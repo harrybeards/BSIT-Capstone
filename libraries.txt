@@ -1,0 +1,6 @@
+jQuery:
+    Using django-dynamic-formset to handle dynamically adding/deleting extra objects
+        https://github.com/elo80ka/django-dynamic-formset
+    Using datepicker by fengyuanchen to create a pop-up select calendar:
+        https://github.com/fengyuanchen/datepicker
+        https://simpleisbetterthancomplex.com/tutorial/2019/01/03/how-to-use-date-picker-with-django.html

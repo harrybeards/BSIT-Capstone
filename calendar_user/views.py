@@ -57,7 +57,7 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
 
 class MealDetail(LoginRequiredMixin, generic.DetailView):
     model = Meal
-    fields = ['day', 'start_time', 'end_time', 'notes']
+    fields = ['title', 'day', 'start_time', 'end_time', 'notes']
 
     def get_queryset(self):
         return Meal.objects.filter(calendaruser=self.request.user.calendaruser)
@@ -75,11 +75,10 @@ class MealCreate(LoginRequiredMixin, CreateView):
 
 class MealUpdate(LoginRequiredMixin, UpdateView):
     model = Meal
-    fields = ['day', 'start_time', 'end_time', 'notes']
+    fields = ['title', 'day', 'start_time', 'end_time', 'notes']
 
     def form_valid(self, form):
         form.instance.calendaruser = self.request.user.calendaruser
-        self.object = form.save()
         return super(MealUpdate, self).form_valid(form)
 
 

@@ -1,0 +1,17 @@
+{% extends 'base-grocery' %}
+
+{% block content %}
+    <h3>Grocery List</h3>
+    {% if grocery_list_week %}
+        <ul>
+        {% for grocery_list in grocery_list_week %}
+            <li>
+                <a href="{{ grocery_list.get_absolute_url }}">{{ grocery_list.name }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No grocery list's found, dawg</p>
+    {% endif %}
+    <a class="btn btn-primary" href="{% url 'grocery_list:grocery-list-create' %}">Create a new Grocery List</a>
+{% endblock %}

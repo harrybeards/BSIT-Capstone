@@ -20,7 +20,7 @@ def create_user_recipebook(sender, **kwargs):
 
 
 class Recipe(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4())
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     recipebook = models.ForeignKey(RecipeBook, related_name='recipe_set', on_delete=models.CASCADE)
     title = models.CharField(max_length=300, help_text='Title of the recipe')
     description = models.TextField(help_text='Description of the recipe', blank=True)
@@ -54,3 +54,6 @@ class Ingredient(models.Model):
 class Direction(models.Model):
     recipe = models.ForeignKey(Recipe, related_name='direction_set', on_delete=models.CASCADE)
     step_instructions = models.TextField(help_text='Write the instructions of the step here')
+
+    def __str__(self):
+        return self.step_instructions

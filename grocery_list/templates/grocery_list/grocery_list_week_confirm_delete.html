@@ -1,0 +1,11 @@
+{% extends 'base-grocery.html' %}
+
+{% block content %}
+    <h2>Delete Grocery List</h2>
+    <p>Are you sure you want to delete the Grocery List: {{ grocery_list_week }}?</p>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+{% endblock %}
