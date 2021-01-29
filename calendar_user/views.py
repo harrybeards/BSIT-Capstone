@@ -66,7 +66,6 @@ class MealDetail(LoginRequiredMixin, generic.DetailView):
 class MealCreate(LoginRequiredMixin, CreateView):
     model = Meal
     fields = ['title', 'day', 'start_time', 'end_time', 'notes']
-    success_url = reverse_lazy('calendar_user:index')
 
     def form_valid(self, form):
         form.instance.calendaruser = self.request.user.calendaruser

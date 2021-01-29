@@ -6,7 +6,7 @@ from .widgets import FengyuanChenDatePickerInput, WickedPicker
 
 class AddMealForm(ModelForm):
     day = forms.DateField(input_formats=['%d/%m/%Y'],
-                          widget=FengyuanChenDatePickerInput(), attrs={'data-toggle': 'datepicker'})
+                          widget=FengyuanChenDatePickerInput())
     start_time = forms.TimeInput(input_formats=['%H:%M %p'],
                                  widget=WickedPicker(), localize=True)
     end_time = forms.TimeInput(input_formats=['%H:%M %p'],

@@ -9,7 +9,7 @@ import uuid
 # Create your models here.
 
 
-class GroceryList(models.Model):
+class UserGroceryListObject(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 
@@ -17,25 +17,28 @@ class GroceryList(models.Model):
 def create_user_grocerylist(sender, **kwargs):
     """Using a django signal to automatically create model object when user is created"""
     if kwargs.get('created', False):
-        GroceryList.objects.get_or_create(user=kwargs.get('instance'))
+        UserGroceryListObject.objects.get_or_create(user=kwargs.get('instance'))
 
 
-class GroceryListWeek(models.Model):
+class GroceryList(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    grocerylist = models.ForeignKey(GroceryList, related_name='grocery_set', on_delete=models.CASCADE)
+    usergrocerylistobject = models.ForeignKey(UserGroceryListObject, related_name='grocery_list_set', on_delete=models.CASCADE)
     name = models.CharField(max_length=300, help_text='Name of this week\'s grocery list')
     date = models.DateField(help_text='Day to go shopping', blank=True, null=True)
     notes = models.TextField(help_text='Notes about this week\'s list', blank=True, null=True)
 
     def get_absolute_url(self):
-        return reverse('grocery_list:list-detail', args=[str(self.id)])
+        return reverse('grocery_list:grocery-list-detail', args=[str(self.id)])
 
     def __str__(self):
         return self.name
 
 
 class GroceryItem(models.Model):
-    grocery_list_week = models.ForeignKey(GroceryListWeek, related_name='grocery_item_set', on_delete=models.CASCADE)
+    grocerylist = models.ForeignKey(GroceryList, related_name='grocery_item_set', on_delete=models.CASCADE)
     name = models.CharField(max_length=600, help_text='Name of the grocery Item')
     amount = models.CharField(max_length=20, blank=True)
     url = models.URLField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name

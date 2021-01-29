@@ -24,6 +24,17 @@ class RecipeDetailView(LoginRequiredMixin, generic.DetailView):
     fields = ['title', 'description', 'servings', 'prep_time', 'cook_time', 'url']
     context_object_name = 'recipe'
 
+    def get_context_data(self, **kwargs):
+        data = super(RecipeDetailView, self).get_context_data(**kwargs)
+
+        if self.request.POST:
+            data['ingredients'] = IngredientFormset(self.request.POST, instance=self.object)
+            data['directions'] = DirectionFormset(self.request.POST, instance=self.object)
+        else:
+            data['ingredients'] = IngredientFormset(instance=self.object)
+            data['directions'] = DirectionFormset(instance=self.object)
+        return data
+
     def get_queryset(self):
         return models.Recipe.objects.filter(recipebook=self.request.user.recipebook)
 

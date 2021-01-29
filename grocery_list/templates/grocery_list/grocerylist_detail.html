@@ -1,0 +1,48 @@
+{% extends 'base-grocery.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">Grocery List</div>
+            <div class="card-body">
+
+                <h3>{{ grocery_list }}</h3>
+                <h3>{{ grocery_list.date }}</h3>
+                <p>{{ grocery_list.notes }}</p>
+
+                <table class="table">
+                    {{ grocery_items.management_form }}
+                    {% for form in grocery_items.forms %}
+                        {% if forloop.first %}
+                        <thead>
+                            <tr>
+                            {% for field in form.visible_fields %}
+                                <th>{{ field.label|capfirst }}</th>
+                            {% endfor %}
+                            </tr>
+                        </thead>
+                        {% endif %}
+
+                        <tr class="{% cycle row1 row2 row3 %} formset_row-{{ grocery_items.prefix }}">
+                        {% for field in form.visible_fields %}
+                            <td>
+                                {# include the hidden fields in the form #}
+                                {% if forloop.first %}
+                                    {% for hidden in form.hidden_fields %}
+                                        {{ hidden }}
+                                    {% endfor %}
+                                {% endif %}
+                                {{ field.errors.as_ul }}
+                                {{ field }}
+                            </td>
+                        {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+                <a class="btn btn-success" href="{% url 'grocery_list:index' %}">Back to the Grocery List</a>
+                <a class="btn btn-primary" href="{% url 'grocery_list:grocery-list-update' grocery_list.pk%}">Edit this Grocery List</a>
+                <a class="btn badge-danger" href="{% url 'grocery_list:grocery-list-delete' grocery_list.pk%}">Delete this Grocery List</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
