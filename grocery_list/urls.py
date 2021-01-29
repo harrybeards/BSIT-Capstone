@@ -1,12 +1,12 @@
 from django.urls import path
-from . import views
+from .views import GroceryListView, GroceryListCreate, GroceryListUpdate, GroceryListDelete, GroceryListDetail
 
 app_name = 'grocery_list'
 
 urlpatterns = [
-    path('', views.GroceryListWeekView.as_view(), name='index'),
-    path('grocery-list/create/', views.GroceryListWeekCreate.as_view(), name='grocery-list-create'),
-    path('grocery-list/<uuid:pk>/update/', views.GroceryListWeekUpdate.as_view(), name='grocery-list-update'),
-    path('grocery-list/<uuid:pk>/delete/', views.GroceryListWeekDelete.as_view(), name='grocery-list-delete'),
-    path('grocery-list/<uuid:pk>/', views.GroceryListWeekDetailView.as_view(), name='grocery-list-detail'),
+    path('', GroceryListView.as_view(), name='index'),
+    path('list/create/', GroceryListCreate.as_view(), name='grocery-list-create'),
+    path('list/<uuid:pk>/', GroceryListDetail.as_view(), name='grocery-list-detail'),
+    path('list/<uuid:pk>/update/', GroceryListUpdate.as_view(), name='grocery-list-update'),
+    path('list/<uuid:pk>/delete/', GroceryListDelete.as_view(), name='grocery-list-delete'),
 ]

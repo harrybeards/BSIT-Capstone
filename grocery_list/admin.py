@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import GroceryList, GroceryListWeek
+from .models import UserGroceryListObject, GroceryList, GroceryItem
 
 # Register your models here.
 
+admin.site.register(UserGroceryListObject)
 admin.site.register(GroceryList)
-admin.site.register(GroceryListWeek)
+admin.site.register(GroceryItem)
 

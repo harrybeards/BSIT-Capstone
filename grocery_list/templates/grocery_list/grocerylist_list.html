@@ -1,12 +1,12 @@
-{% extends 'base-grocery' %}
+{% extends 'base-grocery.html' %}
 
 {% block content %}
     <h3>Grocery List</h3>
-    {% if grocery_list_week %}
+    {% if grocery_list %}
         <ul>
-        {% for grocery_list in grocery_list_week %}
+        {% for list in grocery_list %}
             <li>
-                <a href="{{ grocery_list.get_absolute_url }}">{{ grocery_list.name }}</a>
+                <a href="{{ list.get_absolute_url }}">{{ list.name }}</a>
             </li>
         {% endfor %}
         </ul>

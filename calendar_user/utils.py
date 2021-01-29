@@ -39,7 +39,7 @@ class Calendar(HTMLCalendar):
 
         v = []
         a = v.append
-        a('<table border="0" cellpadding="0" cellspacing="0" class="month">')
+        a('<table border="1" cellpadding="0" cellspacing="0" class="month">')
         a('\n')
         a(self.formatmonthname(theyear, themonth, withyear=withyear))
         a('\n')
