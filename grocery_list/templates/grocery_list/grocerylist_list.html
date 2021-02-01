@@ -1,0 +1,27 @@
+{% extends 'base-grocery.html' %}
+
+{% block content %}
+    <h3>Grocery List</h3>
+    {% if grocery_list %}
+        <div class="card-group">
+        {% for list in grocery_list %}
+            <a href="{{ list.get_absolute_url }}">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>{{ list.name }}</h5>
+                        {% if list.date %}
+                            <h3>{{ list.date }}</h3>
+                        {% endif %}
+                        {% if list.notes %}
+                            <p class="card-text">{{ list.notes }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+        </div>
+    {% else %}
+        <p>No grocery list's found, dawg</p>
+    {% endif %}
+    <a class="btn btn-primary" href="{% url 'grocery_list:grocery-list-create' %}">Create a new Grocery List</a>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base-recipe.html' %}
+
+{% block content %}
+    <h3>Recipe List</h3>
+    {% if recipes %}
+        <div class="card-group">
+        {% for recipe in recipes %}
+            <a href="{{ recipe.get_absolute_url }}">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>{{ recipe.title }}</h5>
+                        {% if recipe.description %}
+                            <p class="card-text">{{ recipe.description }}</p>
+                        {% endif %}
+                        {% if recipe.servings %}
+                            <p>Servings: {{ recipe.servings }}</p>
+                        {% endif %}
+                        {% if recipe.url %}
+                            <a class="btn btn-primary" href="{{ recipe.url }}">Recipe Website</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+        </div>
+    {% else %}
+        <p>No recipes found dawg</p>
+    {% endif %}
+    <a class="btn btn-primary" href="{% url 'recipe_book:recipe-create' %}">Create a Recipe</a>
+{% endblock %}
