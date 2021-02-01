@@ -8,8 +8,6 @@
                 {# table for the Recipe object, manually rendering it for more control #}
 
                 <a class="btn btn-success" href="{% url 'recipe_book:index' %}">Back to the Recipe List</a>
-                <a class="btn btn-primary" href="{% url 'recipe_book:recipe-update' recipe.pk%}">Edit this recipe</a>
-                <a class="btn badge-danger" href="{% url 'recipe_book:recipe-delete' recipe.pk%}">Delete this recipe</a>
 
                 <h3>{{ recipe.title }}</h3>
                 {% if recipe.description %}
@@ -28,68 +26,33 @@
                     <p><b>Website of the Recipe:</b> {{ recipe.url }}</p>
                 {% endif %}
 
-                    {# table for the ingredient(s) object(s) #}
-                    <table class="table">
-                        {{ ingredients.management_form }}
-
-                        {% for form in ingredients.forms %}
-                            {% if forloop.first %}
-                            <thead>
-                                <tr>
-                                    {% for field in form.visible_fields %}
-                                        <th>{{ field.label|capfirst }}</th>
-                                    {% endfor %}
-                                </tr>
-                            </thead>
+                <table class="table table-responsive table-hover ">
+                    <thead>
+                        <th>Ingredient Name</th>
+                        <th>Ingredient Amount</th>
+                    </thead>
+                    {% for ingredient in recipe.ingredient_set.all %}
+                        <tr>
+                            <td>{{ ingredient.name }}</td>
+                            {% if ingredient.amount %}
+                                <td>{{ ingredient.amount }}</td>
                             {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
 
-                            <tr class="{% cycle row1 row2 %} formset_row-{{ ingredients.prefix }}">
-                            {% for field in form.visible_fields %}
-                                <td>
-                                    {# include the hidden fields in the form #}
-                                    {% if forloop.first %}
-                                        {% for hidden in form.hidden_fields %}
-                                            {{ hidden }}
-                                        {% endfor %}
-                                    {% endif %}
-                                    {{ field.errors.as_ul }}
-                                    {{ field }}
-                                </td>
-                            {% endfor %}
-                            </tr>
-                        {% endfor %}
-                    </table>
+                <table class="table table-responsive table-hover ">
+                    <thead>
+                        <th>Direction</th>
+                    </thead>
+                    {% for step_instructions in recipe.direction_set.all %}
+                        <tr>
+                            <td>{{ step_instructions }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
 
-                    <table class="table">
-                    {{ directions.management_form }}
-                        {% for form in directions.forms %}
-                            {% if forloop.first %}
-                            <thead>
-                                <tr>
-                                {% for field in form.visible_fields %}
-                                    <th>{{ field.label|capfirst }}</th>
-                                {% endfor %}
-                                </tr>
-                            </thead>
-                            {% endif %}
 
-                            <tr class="formset_row-{{ directions.prefix }}">
-                            {% for field in form.visible_fields %}
-                                <td readonly>
-                                    {# include the hidden fields in the form #}
-                                    {% if forloop.first %}
-                                        {% for hidden in form.hidden_fields %}
-                                            {{ hidden }}
-                                        {% endfor %}
-                                    {% endif %}
-                                    {{ field.errors.as_ul }}
-                                    {{ field }}
-                                </td>
-                            {% endfor %}
-                            </tr>
-                        {% endfor %}
-                    </table>
-                    <a class="btn btn-success" href="{% url 'recipe_book:index' %}">Back to the Recipe List</a>
                     <a class="btn btn-primary" href="{% url 'recipe_book:recipe-update' recipe.pk%}">Edit this recipe</a>
                     <a class="btn badge-danger" href="{% url 'recipe_book:recipe-delete' recipe.pk%}">Delete this recipe</a>
             </div>

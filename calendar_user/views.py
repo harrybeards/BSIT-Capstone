@@ -16,9 +16,12 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
     template_name = 'calendar_user.html'
     context_object_name = 'meals'
 
+    def get_queryset(self):
+        return Meal.objects.filter(calendaruser=self.request.user.calendaruser)
+
     def get_context_data(self, **kwargs):
         after_day = self.request.GET.get('day__gte', None)
-        context = super().get_context_data(**kwargs)
+        context = super(CalendarView, self).get_context_data(**kwargs)
 
         if not after_day:
             d = datetime.date.today()
@@ -48,11 +51,8 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
         html_calendar = cal.formatmonth(d.year, d.month, withyear=True)
         html_calendar = html_calendar.replace('<td ', '<td  width="150" height="150"')
         context['calendar'] = mark_safe(html_calendar)
-        #return super(CalendarView, self).get_context_data(self.request, extra_context)
+        #return super(CalendarView, self).get_context_data(self.request, context)
         return context
-
-    def get_queryset(self):
-        return Meal.objects.filter(calendaruser=self.request.user.calendaruser)
 
 
 class MealDetail(LoginRequiredMixin, generic.DetailView):

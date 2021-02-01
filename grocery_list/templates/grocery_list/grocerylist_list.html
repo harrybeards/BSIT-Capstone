@@ -3,13 +3,23 @@
 {% block content %}
     <h3>Grocery List</h3>
     {% if grocery_list %}
-        <ul>
+        <div class="card-group">
         {% for list in grocery_list %}
-            <li>
-                <a href="{{ list.get_absolute_url }}">{{ list.name }}</a>
-            </li>
+            <a href="{{ list.get_absolute_url }}">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>{{ list.name }}</h5>
+                        {% if list.date %}
+                            <h3>{{ list.date }}</h3>
+                        {% endif %}
+                        {% if list.notes %}
+                            <p class="card-text">{{ list.notes }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
         {% endfor %}
-        </ul>
+        </div>
     {% else %}
         <p>No grocery list's found, dawg</p>
     {% endif %}
