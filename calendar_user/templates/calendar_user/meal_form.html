@@ -15,14 +15,7 @@
                         </tr>
                         <tr>
                             <td>{{ form.date.label_tag }}</td>
-                            <td>
-                                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                                  {{ form.date }}
-                                  <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                  </div>
-                                </div>
-                            </td>
+                            <td>{{ form.date }}</td>
                         </tr>
                         <tr>
                             <td>{{ form.notes.label_tag }}</td>
@@ -35,18 +28,7 @@
             </div>
         </div>
     </div>
-    <script>
-      $(function () {
-        $("#datetimepicker1").datetimepicker({
-          format: 'MM/DD/YYYY hh:mm',
-          toolbarPlacement: 'default',
-          showTodayButton: true,
-          showClear: true,
-          keepOpen: false,
-          locale: 'us',
-        });
-      });
-    </script>
+
     <script>
         /* Enable "Are you sure you want to leave this page" prompt after user inputs info */
         "use strict";

@@ -8,7 +8,16 @@
 <script>
   $(function () {
     $("#{{ widget.datetimepicker_id }}").datetimepicker({
-      format: 'DD/MM/YYYY HH:mm',
+      //format: 'MM/DD/YYYY HH:MM',
+      toolbarPlacement: 'default',
+      showTodayButton: true,
+      showClear: true,
+      icons: {
+          time: "fa fa-clock-o",
+          date: "fa fa-calendar",
+          up: "fa fa-arrow-up",
+          down: "fa fa-arrow-down"
+      }
     });
   });
 </script>

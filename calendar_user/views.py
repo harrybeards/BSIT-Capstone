@@ -1,12 +1,9 @@
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse, reverse_lazy
-from django.utils.safestring import mark_safe
+from django.urls import reverse_lazy
 from .models import Meal
-from .utils import Calendar
-import datetime
-import calendar
+from .forms import AddMealForm
 
 # Create your views here.
 
@@ -30,7 +27,7 @@ class MealDetail(LoginRequiredMixin, generic.DetailView):
 
 class MealCreate(LoginRequiredMixin, CreateView):
     model = Meal
-    fields = ['title', 'date', 'notes']
+    form_class = AddMealForm
 
     def form_valid(self, form):
         form.instance.calendaruser = self.request.user.calendaruser
