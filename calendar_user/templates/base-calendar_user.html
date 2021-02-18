@@ -100,11 +100,11 @@
                 initialView: 'dayGridMonth',
                   selectable: true,
             dateClick: function() {
-                alert('You selected a day, hooray!!');
+                window.location.href = "{% url 'calendar_user:meal-create' %}";
             },
             headerToolbar: {
               left: 'prev,next today',
-                  center: 'title',
+              center: 'title',
               right: 'dayGridMonth,timeGridWeek,timeGridDay',
                 },
             //themeSystem: 'bootstrap',
