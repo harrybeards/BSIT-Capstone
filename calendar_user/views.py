@@ -1,14 +1,26 @@
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse, reverse_lazy
-from django.utils.safestring import mark_safe
+from django.urls import reverse_lazy
+from django.http import JsonResponse
 from .models import Meal
-from .utils import Calendar
-import datetime
-import calendar
+from .forms import AddMealForm
 
 # Create your views here.
+
+
+def json_list(request):
+    meals = Meal.objects.filter(calendaruser=request.user.calendaruser)
+    json_list = []
+
+    for meal in meals:
+        title = meal.title
+        start = meal.date
+        url = Meal.get_absolute_url(meal)
+        json_entry = {'start': start, 'title': title, 'url': url}
+        json_list.append(json_entry)
+
+    return JsonResponse(json_list, safe=False)
 
 
 class CalendarView(LoginRequiredMixin, generic.ListView):
@@ -19,45 +31,10 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return Meal.objects.filter(calendaruser=self.request.user.calendaruser)
 
-    def get_context_data(self, **kwargs):
-        after_day = self.request.GET.get('day__gte', None)
-        context = super(CalendarView, self).get_context_data(**kwargs)
-
-        if not after_day:
-            d = datetime.date.today()
-        else:
-            try:
-                split_after_day = after_day.split('-')
-                d = datetime.date(year=int(split_after_day[0]), month=int(split_after_day[1]), day=1)
-            except:
-                d = datetime.date.today()
-
-        previous_month = datetime.date(year=d.year, month=d.month, day=1)  # find first day of current month
-        previous_month = previous_month - datetime.timedelta(days=1)  # backs up a single day
-        previous_month = datetime.date(year=previous_month.year, month=previous_month.month,
-                                       day=1)  # find first day of previous month
-
-        last_day = calendar.monthrange(d.year, d.month)
-        next_month = datetime.date(year=d.year, month=d.month, day=last_day[1])  # find last day of current month
-        next_month = next_month + datetime.timedelta(days=1)  # forward a single day
-        next_month = datetime.date(year=next_month.year, month=next_month.month,
-                                   day=1)  # find first day of next month
-
-        context['previous_month'] = reverse('calendar_user:index') + '?day__gte=' + str(
-            previous_month)
-        context['next_month'] = reverse('calendar_user:index') + '?day__gte=' + str(next_month)
-
-        cal = Calendar()
-        html_calendar = cal.formatmonth(d.year, d.month, withyear=True)
-        html_calendar = html_calendar.replace('<td ', '<td  width="150" height="150"')
-        context['calendar'] = mark_safe(html_calendar)
-        #return super(CalendarView, self).get_context_data(self.request, context)
-        return context
-
 
 class MealDetail(LoginRequiredMixin, generic.DetailView):
     model = Meal
-    fields = ['title', 'day', 'start_time', 'end_time', 'notes']
+    fields = ['title', 'date', 'notes']
 
     def get_queryset(self):
         return Meal.objects.filter(calendaruser=self.request.user.calendaruser)
@@ -65,7 +42,7 @@ class MealDetail(LoginRequiredMixin, generic.DetailView):
 
 class MealCreate(LoginRequiredMixin, CreateView):
     model = Meal
-    fields = ['title', 'day', 'start_time', 'end_time', 'notes']
+    form_class = AddMealForm
 
     def form_valid(self, form):
         form.instance.calendaruser = self.request.user.calendaruser
@@ -74,7 +51,7 @@ class MealCreate(LoginRequiredMixin, CreateView):
 
 class MealUpdate(LoginRequiredMixin, UpdateView):
     model = Meal
-    fields = ['title', 'day', 'start_time', 'end_time', 'notes']
+    fields = ['title', 'date', 'notes']
 
     def form_valid(self, form):
         form.instance.calendaruser = self.request.user.calendaruser

@@ -6,13 +6,7 @@
             <div class="card-header">Meal</div>
             <div class="card-body">
                 <h1>Meal: {{ meal.title }}</h1>
-                <h3>Date of the Meal: {{ meal.day }}</h3>
-                {% if meal.start_time %}
-                    <h3>Start time: {{ meal.start_time }}</h3>
-                {% endif %}
-                {% if meal.end_time %}
-                    <h3>End Time {{ meal.end_time }}</h3>
-                {% endif %}
+                <h3>Date of the Meal: {{ meal.date }}</h3>
                 {% if meal.notes %}
                     <p>{{ meal.notes }}</p>
                 {% endif %}
