@@ -9,14 +9,14 @@ from .forms import AddMealForm
 # Create your views here.
 
 
-def json_list(self):
-    meals = Meal.objects.filter(calendaruser=self.request.user.calendaruser)
+def json_list(request):
+    meals = Meal.objects.filter(calendaruser=request.user.calendaruser)
     json_list = []
 
     for meal in meals:
         title = meal.title
         start = meal.date
-        url = Meal.get_absolute_url()
+        url = Meal.get_absolute_url(meal)
         json_entry = {'start': start, 'title': title, 'url': url}
         json_list.append(json_entry)
 
