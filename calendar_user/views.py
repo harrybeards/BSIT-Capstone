@@ -2,10 +2,25 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.http import JsonResponse
 from .models import Meal
 from .forms import AddMealForm
 
 # Create your views here.
+
+
+def json_list(self):
+    meals = Meal.objects.filter(calendaruser=self.request.user.calendaruser)
+    json_list = []
+
+    for meal in meals:
+        title = meal.title
+        start = meal.date
+        url = Meal.get_absolute_url()
+        json_entry = {'start': start, 'title': title, 'url': url}
+        json_list.append(json_entry)
+
+    return JsonResponse(json_list, safe=False)
 
 
 class CalendarView(LoginRequiredMixin, generic.ListView):

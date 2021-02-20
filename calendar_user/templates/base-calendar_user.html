@@ -99,18 +99,18 @@
               var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                   selectable: true,
-            dateClick: function() {
-                window.location.href = "{% url 'calendar_user:meal-create' %}";
-            },
-            headerToolbar: {
-              left: 'prev,next today',
-              center: 'title',
-              right: 'dayGridMonth,timeGridWeek,timeGridDay',
+                dateClick: function() {
+                    window.location.href = "{% url 'calendar_user:meal-create' %}";
                 },
-            //themeSystem: 'bootstrap',
-              });
-              calendar.render();
-            });
+                headerToolbar: {
+                  left: 'prev,next today',
+                  center: 'title',
+                  right: 'dayGridMonth,timeGridWeek,timeGridDay',
+                    },
+                events: '{% url 'calendar_user:json-list' %}',
+                  });
+                  calendar.render();
+                });
 
           /*
           // add the responsive classes after page initialization
