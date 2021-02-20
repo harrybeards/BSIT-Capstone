@@ -10,6 +10,8 @@
                 {% if meal.notes %}
                     <p>{{ meal.notes }}</p>
                 {% endif %}
+                <a class="btn btn-primary" href="{% url 'calendar_user:meal-update' meal.pk%}">Edit This Recipe</a>
+                <a class="btn btn-danger" href="{% url 'calendar_user:index' %}">Back to the Calendar</a>
             </div>
         </div>
     </div>
