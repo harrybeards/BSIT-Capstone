@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.shortcuts import reverse
 from django.core.exceptions import ValidationError
-import uuid, datetime
+import uuid
 
 # Create your models here.
 
@@ -62,4 +62,12 @@ class Meal(models.Model):
     class Meta:
         verbose_name = 'Meal'
         verbose_name_plural = 'Meals'
+
+
+class Side(models.Model):
+    meal = models.ForeignKey(Meal, on_delete=models.CASCADE, related_name='side_set')
+    side = models.CharField(max_length=150, help_text='The Side you\'d like to add to the meal')
+
+    def __str__(self):
+        return self.side
 

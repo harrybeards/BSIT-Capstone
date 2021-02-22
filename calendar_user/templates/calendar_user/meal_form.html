@@ -17,6 +17,35 @@
                             <td>{{ form.date.label_tag }}</td>
                             <td>{{ form.date }}</td>
                         </tr>
+                        <table class="table">
+                            {{ sides.management_form }}
+
+                            {% for form in sides.forms %}
+                                {% if forloop.first %}
+                                    <thead>
+                                        <tr>
+                                            {% for field in form.visible_fields %}
+                                                <th>{{ field.label|capfirst }}</th>
+                                            {% endfor %}
+                                        </tr>
+                                    </thead>
+                                {% endif %}
+
+                                <tr class="{% cycle row1 row2 %} formset_row-{{ sides.prefix }}">
+                                {% for field in form.visible_fields %}
+                                    <td>
+                                        {% if forloop.first %}
+                                            {% for hidden in form.hidden_fields %}
+                                                {{ hidden }}
+                                            {% endfor %}
+                                        {% endif %}
+                                        {{ field.errors.as_ul }}
+                                        {{ field }}
+                                    </td>
+                                {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </table>
                         <tr>
                             <td>{{ form.notes.label_tag }}</td>
                             <td>{{ form.notes }}</td>
@@ -29,6 +58,15 @@
         </div>
     </div>
 
+    {% load static %}
+    <script src="{% static 'js/jquery.formsets.js' %}"></script>
+    <script type="text/javascript">
+        $('.formset_row-{{ sides.prefix }}').formset({
+            addText: 'Add Another Side',
+            deleteText: 'Remove',
+            prefix: '{{ sides.prefix }}',
+        });
+    </script>
     <script>
         /* Enable "Are you sure you want to leave this page" prompt after user inputs info */
         "use strict";

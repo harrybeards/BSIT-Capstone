@@ -26,8 +26,6 @@ class Recipe(models.Model):
     description = models.TextField(help_text='Description of the recipe', blank=True)
     # image = models.ImageField(height_field=, width_field=, help_text='Image of the recipe', blank=True)
     servings = models.PositiveSmallIntegerField(help_text='The amount of servings the recipe will yield', default=0, blank=True)
-    # prep_time = models.PositiveSmallIntegerField(help_text='The preparation time', default=0, blank=True)
-    # cook_time = models.PositiveSmallIntegerField(help_text='The cooking time', default=0, blank=True)
     prep_time = models.CharField(max_length=50, help_text='The preparation time', default=0, blank=True)
     cook_time = models.CharField(max_length=50, help_text='The cooking time', default=0, blank=True)
     url = models.URLField(blank=True)

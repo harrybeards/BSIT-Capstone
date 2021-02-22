@@ -10,6 +10,20 @@
                 {% if meal.notes %}
                     <p>{{ meal.notes }}</p>
                 {% endif %}
+
+
+                {% if meal.side_set %}
+                    <table class="table table-responsive table-hover">
+                        <thead>
+                            <th>Side</th>
+                        </thead>
+                    {% for side in meal.side_set.all %}
+                        <tr>
+                            <td>{{ side }}</td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                {% endif %}
                 <a class="btn btn-primary" href="{% url 'calendar_user:meal-update' meal.pk%}">Edit This Recipe</a>
                 <a class="btn btn-danger" href="{% url 'calendar_user:index' %}">Back to the Calendar</a>
             </div>

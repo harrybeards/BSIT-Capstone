@@ -102,8 +102,16 @@
                 dateClick: function() {
                     window.location.href = "{% url 'calendar_user:meal-create' %}";
                 },
+                customButtons: {
+                    mealCreate: {
+                        text: 'Schedule a Meal',
+                        click: function() {
+                            window.location.href = "{% url 'calendar_user:meal-create' %}";
+                        }
+                    }
+                },
                 headerToolbar: {
-                  left: 'prev,next today',
+                  left: 'prev,next today mealCreate',
                   center: 'title',
                   right: 'dayGridMonth,timeGridWeek,timeGridDay',
                     },
