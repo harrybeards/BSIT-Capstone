@@ -11,6 +11,10 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 
+        <!-- CoreUI CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/all.min.css">
+
         <!-- FullCalendar JS and CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.css">
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js"></script>
@@ -29,107 +33,95 @@
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     </head>
 
-    <body>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Meal Planning</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'calendar_user:index' %}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
+    <body class="c-app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
 
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-            </li>
-          </ul>
-        </nav>
+        <!-- Sidebar -->
+        <div class="c-sidebar c-sidebar-lg-show" style="background-color:">
+            <div class="c-sidebar-brand">
+                <h1>MealPrep Guru</h1>
+            </div>
+            <ul class="c-sidebar-nav">
+              <!-- <li class="c-sidebar-nav-title">Nav Title</li> -->
 
-        <div class="row">
-            <div class="col-sm-2">
-                <div class="vertical-nav bg-white" id="sidebar">
-                  <div class="py-4 px-3 mb-4 bg-light">
-                    <div class="media d-flex align-items-center"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556074849/avatar-1_tcnd60.png" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">
-                      <div class="media-body">
-                        <h4 class="m-0">{{ user.username }}</h4>
-                        <p class="font-weight-light text-muted mb-0">Lorem Ipsum</p>
+              <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link" href="{% url 'calendar_user:index' %}">
+                  <i class="c-sidebar-nav-icon cil-calendar"></i> Calendar
+                </a>
+              </li>
+
+              <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link" href="{% url 'recipe_book:index' %}">
+                  <i class="c-sidebar-nav-icon cil-book"></i> Recipe Book
+                </a>
+              </li>
+
+              <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link" href="{% url 'grocery_list:index' %}">
+                  <i class="c-sidebar-nav-icon cil-cart"></i> Grocery List
+                </a>
+              </li>
+
+              <!-- If we want to do dropdowns:  -->
+              <!-- <li class="c-sidebar-nav-item nav-dropdown">
+                <a class="c-sidebar-nav-link nav-dropdown-toggle" href="#">
+                  <i class="c-sidebar-nav-icon cil-puzzle"></i> Nav dropdown
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                  <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="#">
+                      <i class="c-sidebar-nav-icon cil-puzzle"></i> Nav dropdown item
+                    </a>
+                  </li>
+                  <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="#">
+                      <i class="c-sidebar-nav-icon cil-puzzle"></i> Nav dropdown item
+                    </a>
+                  </li>
+                </ul>
+              </li> -->
+
+            </ul>
+          </div>
+
+          <div class="c-wrapper">
+
+            <header class="c-header c-header-light px-3" style="background-color:">
+                <ul class="c-header-nav ml-auto mr-4">
+                    <li class="c-header-nav-item">Hi, {{ user.username }}</li>
+                    <li class="c-header-nav-item active">
+                      <a class="c-header-nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="c-header-nav-item">
+                      <a class="c-header-nav-link" href="#">Link</a>
+                    </li>
+                    <li class="c-header-nav-item dropdown">
+                      <a class="c-header-nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                        Account
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Your Account</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Logout</a>
                       </div>
-                    </div>
-                </div>
-
-                <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Recipe Book</p>
-
-                  <ul class="nav flex-column bg-white mb-0">
-                    <li class="nav-item">
-                      <a href="{% url 'calendar_user:index' %}" class="nav-link text-dark bg-light">Calendar</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="{% url 'recipe_book:index' %}" class="nav-link text-dark  bg-light">Recipe Book</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="{% url 'grocery_list:index' %}" class="nav-link text-dark  bg-light">Grocery List</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="#" class="nav-link text-dark bg-light">Settings</a>
                     </li>
                   </ul>
+            </header>
+
+            <div class="c-body">
+              <main class="c-main">
+                {% block content %}
+
+                {% endblock %}
+              </main>
             </div>
-        </div>
-    <!-- End vertical navbar -->
 
-        {# Pages that extend this file will have their content inserted in the below block #}
-        <div class="col-sm-10">
-        {% block content %}
+          </div>
 
-        {% endblock %}
-        </div>
-        </div>
+        <!-- Optional JavaScript -->
+        <!-- Popper.js first, then CoreUI JS -->
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+        <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
 
-        <script>
-          document.addEventListener('DOMContentLoaded', function() {
-              var calendarEl = document.getElementById('calendar');
-              var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                  selectable: true,
-                dateClick: function() {
-                    window.location.href = "{% url 'calendar_user:meal-create' %}";
-                },
-                customButtons: {
-                    mealCreate: {
-                        text: 'Schedule a Meal',
-                        click: function() {
-                            window.location.href = "{% url 'calendar_user:meal-create' %}";
-                        }
-                    }
-                },
-                headerToolbar: {
-                  left: 'prev,next today mealCreate',
-                  center: 'title',
-                  right: 'dayGridMonth,timeGridWeek,timeGridDay',
-                    },
-                events: '{% url 'calendar_user:json-list' %}',
-                  });
-                  calendar.render();
-                });
-
-          /*
-          // add the responsive classes after page initialization
-          window.onload = function () {
-              $('.fc-toolbar.fc-header-toolbar').addClass('row col-lg-12');
-          };
-
-          // add the responsive classes when navigating with calendar buttons
-          $(document).on('click', '.fc-button', function(e) {
-              $('.fc-toolbar.fc-header-toolbar').addClass('row col-lg-12');
-          }); */
-        </script>
     </body>
 </html>
