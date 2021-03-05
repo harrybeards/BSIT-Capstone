@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'calendar_user',
+    'calendar',
     'recipe_book',
     'grocery_list',
     'settings',
@@ -142,5 +142,5 @@ AUTH_USER_MODEL = 'accounts.User'
 
 # Where to redirect the user after logging in and logging out
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'calendar_user:index'
+LOGIN_REDIRECT_URL = 'calendar:index'
 LOGOUT_REDIRECT_URL = 'login'

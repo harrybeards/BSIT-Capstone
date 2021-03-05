@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name = 'calendar_user'
+app_name = 'calendar'
 urlpatterns = [
     path('', views.CalendarView.as_view(), name='index'),
     path('meal/create/', views.MealCreate.as_view(), name='meal-create'),

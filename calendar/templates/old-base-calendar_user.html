@@ -36,7 +36,7 @@
               <a class="nav-link" href="#">Meal Planning</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'calendar_user:index' %}">Home</a>
+              <a class="nav-link" href="{% url 'calendar:index' %}">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">About</a>
@@ -69,7 +69,7 @@
 
                   <ul class="nav flex-column bg-white mb-0">
                     <li class="nav-item">
-                      <a href="{% url 'calendar_user:index' %}" class="nav-link text-dark bg-light">Calendar</a>
+                      <a href="{% url 'calendar:index' %}" class="nav-link text-dark bg-light">Calendar</a>
                     </li>
                     <li class="nav-item">
                       <a href="{% url 'recipe_book:index' %}" class="nav-link text-dark  bg-light">Recipe Book</a>
@@ -100,14 +100,14 @@
                 initialView: 'dayGridMonth',
                   selectable: true,
                 dateClick: function() {
-                    window.location.href = "{% url 'calendar_user:meal-create' %}";
+                    window.location.href = "{% url 'calendar:meal-create' %}";
                 },
                 contentHeight: 'auto',
                 customButtons: {
                     mealCreate: {
                         text: 'Schedule a Meal',
                         click: function() {
-                            window.location.href = "{% url 'calendar_user:meal-create' %}";
+                            window.location.href = "{% url 'calendar:meal-create' %}";
                         }
                     }
                 },
@@ -116,7 +116,7 @@
                   center: 'title',
                   right: 'dayGridMonth,timeGridWeek,timeGridDay',
                     },
-                events: '{% url 'calendar_user:json-list' %}',
+                events: '{% url 'calendar:json-list' %}',
                   });
                   calendar.render();
                 });

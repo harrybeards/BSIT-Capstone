@@ -21,7 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('calendar/', include('calendar_user.urls', namespace='calendar_user')),
+    path('calendar/', include('calendar.urls', namespace='calendar')),
     path('recipe-book/', include('recipe_book.urls', namespace='recipe_book')),
     path('grocery-list/', include('grocery_list.urls', namespace='grocery_list')),
     # Using TemplateView allows use to not have to create a view to serve a template

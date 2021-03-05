@@ -1,11 +1,11 @@
 /*global gettext, pgettext, get_format, quickElement, removeChildren*/
 /*
-calendar_user.js - calendar_user functions by Adrian Holovaty
+calendar.js - calendar functions by Adrian Holovaty
 depends on core.js for utility functions like removeChildren or quickElement
 */
 'use strict';
 {
-    // CalendarNamespace -- Provides a collection of HTML calendar_user-related helper functions
+    // CalendarNamespace -- Provides a collection of HTML calendar-related helper functions
     const CalendarNamespace = {
         monthsOfYear: [
             gettext('January'),
@@ -143,13 +143,13 @@ depends on core.js for utility functions like removeChildren or quickElement
         }
     };
 
-    // calendar_user -- A calendar_user instance
+    // calendar -- A calendar instance
     function Calendar(div_id, callback, selected) {
-        // div_id (string) is the ID of the element in which the calendar_user will
+        // div_id (string) is the ID of the element in which the calendar will
         //     be displayed
         // callback (string) is the name of a JavaScript function that will be
         //     called with the parameters (year, month, day) when a day in the
-        //     calendar_user is clicked
+        //     calendar is clicked
         this.div_id = div_id;
         this.callback = callback;
         this.today = new Date();

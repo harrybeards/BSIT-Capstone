@@ -1,4 +1,4 @@
-{% extends 'base-calendar_user.html' %}
+{% extends 'base-calendar.html' %}
 
 {% block content %}
     <div class="container-fluid">
@@ -12,14 +12,14 @@
                 initialView: 'dayGridMonth',
                   selectable: true,
                 dateClick: function() {
-                    window.location.href = "{% url 'calendar_user:meal-create' %}";
+                    window.location.href = "{% url 'calendar:meal-create' %}";
                 },
                 contentHeight: 'auto',
                 customButtons: {
                     mealCreate: {
                         text: 'Schedule a Meal',
                         click: function() {
-                            window.location.href = "{% url 'calendar_user:meal-create' %}";
+                            window.location.href = "{% url 'calendar:meal-create' %}";
                         }
                     }
                 },
@@ -28,7 +28,7 @@
                   center: 'title',
                   right: 'dayGridMonth,timeGridWeek,timeGridDay',
                     },
-                events: '{% url 'calendar_user:json-list' %}',
+                events: '{% url 'calendar:json-list' %}',
                   });
                   calendar.render();
                 });

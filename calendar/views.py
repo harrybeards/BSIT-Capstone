@@ -11,7 +11,7 @@ from .forms import AddMealForm, SideFormset
 
 @login_required()
 def json_list(request):
-    meals = Meal.objects.filter(calendaruser=request.user.calendaruser)
+    meals = Meal.objects.filter(calendar=request.user.calendar)
     json_array = []
 
     for meal in meals:
@@ -26,11 +26,11 @@ def json_list(request):
 
 class CalendarView(LoginRequiredMixin, generic.ListView):
     model = Meal
-    template_name = 'calendar_user.html'
+    template_name = 'calendar.html'
     context_object_name = 'meals'
 
     def get_queryset(self):
-        return Meal.objects.filter(calendaruser=self.request.user.calendaruser)
+        return Meal.objects.filter(calendar=self.request.user.calendar)
 
 
 class MealDetail(LoginRequiredMixin, generic.DetailView):
@@ -45,7 +45,7 @@ class MealDetail(LoginRequiredMixin, generic.DetailView):
         return data
 
     def get_queryset(self):
-        return Meal.objects.filter(calendaruser=self.request.user.calendaruser)
+        return Meal.objects.filter(calendar=self.request.user.calendar)
 
 
 class MealCreate(LoginRequiredMixin, CreateView):
@@ -63,7 +63,7 @@ class MealCreate(LoginRequiredMixin, CreateView):
         return data
 
     def form_valid(self, form):
-        form.instance.calendaruser = self.request.user.calendaruser
+        form.instance.calendar = self.request.user.calendar
         context = self.get_context_data()
         sides = context['sides']
 
@@ -92,7 +92,7 @@ class MealUpdate(LoginRequiredMixin, UpdateView):
         return data
 
     def form_valid(self, form):
-        form.instance.calendaruser = self.request.user.calendaruser
+        form.instance.calendar = self.request.user.calendar
         context = self.get_context_data()
         sides = context['sides']
 
@@ -107,8 +107,8 @@ class MealUpdate(LoginRequiredMixin, UpdateView):
 
 class MealDelete(LoginRequiredMixin, DeleteView):
     model = Meal
-    success_url = reverse_lazy('calendar_user:index')
+    success_url = reverse_lazy('calendar:index')
 
     def form_valid(self, form):
-        form.instance.calendaruser = self.request.user.calendaruser
+        form.instance.calendar = self.request.user.calendar
         return super(MealDelete, self).form_valid(form)

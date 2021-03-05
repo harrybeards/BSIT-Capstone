@@ -1,4 +1,4 @@
-{% extends 'base-calendar_user.html' %}
+{% extends 'base-calendar.html' %}
 
 {% block content %}
     <div class="container">
@@ -24,8 +24,8 @@
                     {% endfor %}
                     </table>
                 {% endif %}
-                <a class="btn btn-primary" href="{% url 'calendar_user:meal-update' meal.pk%}">Edit This Recipe</a>
-                <a class="btn btn-danger" href="{% url 'calendar_user:index' %}">Back to the Calendar</a>
+                <a class="btn btn-primary" href="{% url 'calendar:meal-update' meal.pk%}">Edit This Recipe</a>
+                <a class="btn btn-danger" href="{% url 'calendar:index' %}">Back to the Calendar</a>
             </div>
         </div>
     </div>

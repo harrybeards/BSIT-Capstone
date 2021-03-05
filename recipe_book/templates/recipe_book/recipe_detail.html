@@ -1,61 +1,52 @@
 {% extends 'base-recipe.html' %}
 
 {% block content %}
- <div class="container">
-        <div class="card">
-            <div class="card-header">Recipe</div>
-            <div class="card-body">
-                {# table for the Recipe object, manually rendering it for more control #}
-
-                <a class="btn btn-success" href="{% url 'recipe_book:index' %}">Back to the Recipe List</a>
-
-                <h3>{{ recipe.title }}</h3>
-                {% if recipe.description %}
-                    <p>{{ recipe.description }}</p>
-                {% endif %}
-                {% if recipe.servings %}
-                    <p><b>Servings:</b> {{ recipe.servings }}</p>
-                {% endif %}
-                {% if recipe.prep_time %}
-                    <p><b>Preparation Time:</b> {{ recipe.prep_time }}</p>
-                {% endif %}
-                {% if recipe.cook_time %}
-                    <p><b>Cooking Time:</b> {{ recipe.cook_time }}</p>
-                {% endif %}
-                {% if recipe.url %}
-                    <p><b>Website of the Recipe:</b> {{ recipe.url }}</p>
-                {% endif %}
-
-                <table class="table table-responsive table-hover ">
-                    <thead>
-                        <th>Ingredient Name</th>
-                        <th>Ingredient Amount</th>
-                    </thead>
-                    {% for ingredient in recipe.ingredient_set.all %}
-                        <tr>
-                            <td>{{ ingredient.name }}</td>
-                            {% if ingredient.amount %}
-                                <td>{{ ingredient.amount }}</td>
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                </table>
-
-                <table class="table table-responsive table-hover ">
-                    <thead>
-                        <th>Direction</th>
-                    </thead>
-                    {% for step_instructions in recipe.direction_set.all %}
-                        <tr>
-                            <td>{{ step_instructions }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-
-
-                    <a class="btn btn-primary" href="{% url 'recipe_book:recipe-update' recipe.pk%}">Edit this recipe</a>
-                    <a class="btn badge-danger" href="{% url 'recipe_book:recipe-delete' recipe.pk%}">Delete this recipe</a>
-            </div>
-        </div>
+<a class="btn btn-danger" href="{% url 'recipe_book:index' %}">
+    <i class="cil-arrow-thick-left"></i> Back to the Recipe List
+</a>
+<div class="card mx-auto" style="width: 28rem;">
+    <div class="card-header"><h2>{{ recipe.title }}</h2></div>
+    <div class="card-body">
+    {#        <h2 class="card-title">{{ recipe.title }}</h2>#}
+        {% if recipe.description %}
+        <p class="card-text">{{ recipe.description }}</p>
+        {% endif %}
+        {% if recipe.servings %}
+        <h5 class="card-title"><b>Servings:</b> {{ recipe.servings }}</h5>
+        {% endif %}
+        {% if recipe.prep_time %}
+        <h5 class="card-title"><b>Preparation Time:</b> {{ recipe.prep_time }}</h5>
+        {% endif %}
+        {% if recipe.cook_time %}
+        <h5 class="card-title"><b>Cooking Time:</b> {{ recipe.cook_time }}</h5>
+        {% endif %}
+        {% if recipe.url %}
+            <a class="card-link" href="{{ recipe.url }}">Website of the Recipe</a>
+        {% endif %}
     </div>
+    <div class="card-body">
+        {% if recipe.ingredient_set %}
+        <h4 class="card-title">Ingredients</h4>
+            <ul class="list-group">
+            {% for ingredient in recipe.ingredient_set.all %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">{{ ingredient.name }}
+                {% if ingredient.amount %}
+                    <span class="badge badge-primary badge-pill">{{ ingredient.amount }}</span>
+                {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        {% if recipe.direction_set %}
+            <h4 class="card-title">Directions</h4>
+            <ul class="list-group">
+            {% for direction in recipe.direction_set.all %}
+                <li class="list-group-item">{{ direction }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

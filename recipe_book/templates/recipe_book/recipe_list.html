@@ -3,28 +3,26 @@
 {% block content %}
     <h3>Recipe List</h3>
     {% if recipes %}
-        <div class="card-group">
+        <div class="card-columns">
         {% for recipe in recipes %}
-            <a href="{{ recipe.get_absolute_url }}">
-                <div class="card">
-                    <div class="card-body">
-                        <h5>{{ recipe.title }}</h5>
-                        {% if recipe.description %}
-                            <p class="card-text">{{ recipe.description }}</p>
-                        {% endif %}
-                        {% if recipe.servings %}
-                            <p>Servings: {{ recipe.servings }}</p>
-                        {% endif %}
-                        {% if recipe.url %}
-                            <a class="btn btn-primary" href="{{ recipe.url }}">Recipe Website</a>
-                        {% endif %}
-                    </div>
+            <div class="card mx-auto" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ recipe.title }}</h5>
+                    {% if recipe.description %}
+                        <p class="card-text">{{ recipe.description }}</p>
+                    {% endif %}
+                    {% if recipe.servings %}
+                        <h6 class="card-subtitle mb-2 text-muted">Servings: {{ recipe.servings }}</h6>
+                    {% endif %}
+                    <a class="card-link stretched-link" href="{% url 'recipe_book:recipe-detail' recipe.pk %}">Recipe Detail</a>
+                    {% if recipe.url %}
+                        <a class="card-link" href="{{ recipe.url }}">Recipe Website</a>
+                    {% endif %}
                 </div>
-            </a>
+            </div>
         {% endfor %}
         </div>
     {% else %}
         <p>No recipes found dawg</p>
     {% endif %}
-    <a class="btn btn-primary" href="{% url 'recipe_book:recipe-create' %}">Create a Recipe</a>
 {% endblock %}

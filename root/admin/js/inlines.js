@@ -206,7 +206,7 @@
         const $rows = $(this);
 
         const reinitDateTimeShortCuts = function() {
-            // Reinitialize the calendar_user and clock widgets by force
+            // Reinitialize the calendar and clock widgets by force
             if (typeof DateTimeShortcuts !== "undefined") {
                 $(".datetimeshortcuts").remove();
                 DateTimeShortcuts.init();
@@ -272,7 +272,7 @@
         };
 
         const reinitDateTimeShortCuts = function() {
-            // Reinitialize the calendar_user and clock widgets by force, yuck.
+            // Reinitialize the calendar and clock widgets by force, yuck.
             if (typeof DateTimeShortcuts !== "undefined") {
                 $(".datetimeshortcuts").remove();
                 DateTimeShortcuts.init();

@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import CalendarUser, Meal, Side
+from .models import Calendar, Meal, Side
 
 # Register your models here.
-admin.site.register(CalendarUser)
+admin.site.register(Calendar)
 
 admin.site.register(Meal)
 class MealAdmin(admin.ModelAdmin):

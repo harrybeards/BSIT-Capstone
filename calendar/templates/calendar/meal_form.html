@@ -1,4 +1,4 @@
-{% extends 'base-calendar_user.html' %}
+{% extends 'base-calendar.html' %}
 
 {% block content %}
     <div class="container">
@@ -52,7 +52,7 @@
                         </tr>
                     </table>
                     <input class="btn btn-primary" type="submit" value="Submit">
-                    <a class="btn btn-danger" href="{% url 'calendar_user:index' %}">Back to the Calendar</a>
+                    <a class="btn btn-danger" href="{% url 'calendar:index' %}">Back to the Calendar</a>
                 </form>
             </div>
         </div>

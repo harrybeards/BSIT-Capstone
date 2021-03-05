@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class CalendarConfig(AppConfig):
-    name = 'calendar_user'
+    name = 'calendar'

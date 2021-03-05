@@ -9,7 +9,7 @@ import uuid
 # Create your models here.
 
 
-class CalendarUser(models.Model):
+class Calendar(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 
@@ -17,12 +17,12 @@ class CalendarUser(models.Model):
 def create_user_calendar(sender, **kwargs):
     """Using a django signal to automatically create model object when user is created"""
     if kwargs.get('created', False):
-        CalendarUser.objects.get_or_create(user=kwargs.get('instance'))
+        Calendar.objects.get_or_create(user=kwargs.get('instance'))
 
 
 class Meal(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True)
-    calendaruser = models.ForeignKey(CalendarUser, on_delete=models.CASCADE)
+    calendar = models.ForeignKey(Calendar, on_delete=models.CASCADE)
     title = models.CharField(max_length=300, help_text='Title of the meal', unique=False)
     date = models.DateTimeField(help_text='Day of the week', unique=False)
     notes = models.TextField(help_text='Notes', blank=True, null=True)
@@ -54,7 +54,7 @@ class Meal(models.Model):
     #                             meal.start_time) + '-' + str(meal.end_time))
 
     def get_absolute_url(self):
-        return reverse('calendar_user:meal-detail', args=[str(self.id)])
+        return reverse('calendar:meal-detail', args=[str(self.id)])
 
     def __str__(self):
         return self.title
